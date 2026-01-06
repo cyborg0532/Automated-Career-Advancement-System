@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAS Master | Data Pirates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-page" class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-visual">
+                <div class="logo-box">DP</div>
+                <h1>Faculty <br>Growth Machine</h1>
+                <p>Advanced Career Advancement Scheme Management System</p>
+            </div>
+            <div class="auth-form">
+                <h2>Portal Access</h2>
+                <div class="role-selector">
+                    <button class="role-pill active" onclick="setRole('Faculty', this)">Faculty</button>
+                    <button class="role-pill" onclick="setRole('HOD', this)">HOD</button>
+                </div>
+                <form id="loginForm">
+                    <div class="input-field">
+                        <label>University Email</label>
+                        <input type="email" placeholder="faculty@pirates.edu" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Password</label>
+                        <input type="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Sign In to Workspace</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-app" class="app-shell hidden">
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand">PIRATES <span>CAS</span></div>
+                <nav id="sidebar-nav"></nav>
+            </div>
+            <div class="sidebar-bottom">
+                <button class="btn-logout" onclick="location.reload()">Sign Out 🚪</button>
+            </div>
+        </aside>
+
+        <main class="main-body">
+            <header class="top-nav">
+                <div class="view-meta">
+                    <h1 id="view-title">Overview</h1>
+                    <p id="view-subtitle">Initial Profile Sync</p>
+                </div>
+                <div class="user-pill" onclick="toggleDrop()">
+                    <div class="user-info">
+                        <span id="u-name">Guest User</span>
+                        <small id="u-role">Faculty</small>
+                    </div>
+                    <div class="avatar" id="u-avatar">U</div>
+                </div>
+            </header>
+
+            <div id="content-area" class="viewport">
+                </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
