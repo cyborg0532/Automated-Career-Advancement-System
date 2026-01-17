@@ -94,12 +94,12 @@
             }
         }
         
-        .auth-visual {
+            .auth-visual {
             background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
             padding: 56px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between; /* 🔑 */
             position: relative;
             overflow: hidden;
         }
@@ -116,6 +116,9 @@
             animation: pulse 8s ease-in-out infinite;
         }
         
+   
+
+
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.2); opacity: 0.8; }
@@ -138,6 +141,15 @@
             position: relative;
             z-index: 1;
         }
+        
+        .logo-img {
+           width: 100%;
+           height: 100%;
+           object-fit: contain;
+           border-radius: 20px;
+        }
+
+        
         
         .auth-visual h1 {
             font-size: 42px;
@@ -737,8 +749,8 @@
     <div id="loginPage" class="auth-container">
         <div class="auth-card">
             <div class="auth-visual">
-                <div class="logo-container">P</div>
-                <h1>PIRATES<br>Comprehensive<br>Assessment System</h1>
+                <div class="logo-container">  <img src="logo.png" alt="Data Pirates Logo" class="logo-img"></div>
+            <div class="main-container"> <h1>Data PIRATES<br><br>Comprehensive<br>Assessment System</h1></div>
                 <p>Advanced career advancement tracking and analytics platform for academic excellence</p>
             </div>
             <div class="auth-form-container">
