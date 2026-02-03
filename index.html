@@ -8,14 +8,14 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
-        /* --- THEME COLOR PALETTE (Monochromatic) --- */
+        
         :root {
             --bg-primary: #ffffff;
             --bg-secondary: #f8fafc;
             --bg-tertiary: #e2e8f0;
-            --accent-blue: #0f172a; /* Main Black */
-            --accent-cyan: #475569; /* Dark Grey */
-            --accent-purple: #64748b; /* Medium Grey */
+            --accent-blue: #0f172a; 
+            --accent-cyan: #475569; 
+            --accent-purple: #64748b; 
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
@@ -43,7 +43,7 @@
             min-height: 100vh;
         }
 
-        /* PREMIUM TEXTURE: Adds a subtle grain over the background */
+        /* PREMIUM TEXTURE */
         body::after {
             content: "";
             position: fixed;
@@ -788,15 +788,15 @@
                                 <div class="form-grid">
                                     <div class="input-group">
                                         <label class="input-label">Legal Full Name</label>
-                                        <input type="text" class="input-field" id="fullName" value="${state.currentUser.name}" placeholder="Dr. John Smith" required>
+                                        <input type="text" class="input-field" id="fullName" value="${state.currentUser.name}" placeholder="Dr. John Smith" required maxlength="50">
                                     </div>
                                     <div class="input-group">
                                         <label class="input-label">Employee ID</label>
-                                        <input type="text" class="input-field" id="employeeId" value="${state.currentUser.employeeId}" placeholder="FAC-2024-001" required>
+                                        <input type="text" class="input-field" id="employeeId" value="${state.currentUser.employeeId}" placeholder="FAC-2024-001" required maxlength="20">
                                     </div>
                                     <div class="input-group">
                                         <label class="input-label">Department</label>
-                                        <input type="text" class="input-field" id="department" value="${state.currentUser.department}" placeholder="Computer Science" required>
+                                        <input type="text" class="input-field" id="department" value="${state.currentUser.department}" placeholder="Computer Science" required maxlength="50">
                                     </div>
                                     <div class="input-group">
                                         <label class="input-label">Faculty Type</label>
@@ -816,12 +816,12 @@
                                     </div>
                                     <div class="input-group">
                                         <label class="input-label">Contact Phone</label>
-                                        <input type="tel" class="input-field" id="phone" placeholder="+1 (555) 123-4567" pattern="[0-9+\-\(\)\s]+" required>
+                                        <input type="tel" class="input-field" id="phone" placeholder="+1 (555) 123-4567" required maxlength="15">
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     <label class="input-label">Research Interests</label>
-                                    <textarea class="input-field" id="researchInterests" rows="3" placeholder="Machine Learning, Data Science, AI Ethics..."></textarea>
+                                    <textarea class="input-field" id="researchInterests" rows="3" placeholder="Machine Learning, Data Science, AI Ethics..." maxlength="200"></textarea>
                                 </div>
                                 <button type="button" class="btn-primary" onclick="saveProfile()" style="width: 250px; margin-top: 16px;">Save Profile Information</button>
                             </form>
@@ -829,6 +829,25 @@
                     </div>
                 </div>
             `;
+
+            // --- INPUT RESTRICTION LOGIC ---
+
+            // 1. Restrict Name (No Numbers allowed)
+            const nameInput = document.getElementById('fullName');
+            if(nameInput){
+                nameInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[0-9]/g, '');
+                });
+            }
+
+            // 2. Restrict Phone (No Letters allowed, only numbers and formatting)
+            const phoneInput = document.getElementById('phone');
+            if(phoneInput){
+                phoneInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[^0-9+\-\(\)\s]/g, '');
+                });
+            }
+
             const uploadArea = document.getElementById('uploadArea');
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 uploadArea.addEventListener(eventName, preventDefaults, false);
