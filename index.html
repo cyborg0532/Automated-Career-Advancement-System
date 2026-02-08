@@ -1544,101 +1544,101 @@
             }, 3000);
         }
 
-        // ===== CHATBOT WIDGET =====
-        
-        // Chatbot Knowledge Base - Enhanced with Website Features
-        const chatbotKB = {
-            greetings: {
-                keywords: ['hello', 'hi', 'hey', 'start', 'help', 'support'],
-                response: "👋 Welcome to Automated CAS! I'm here to help you understand our services and guide you to the right solutions. What would you like to know about?"
-            },
-            services: {
-                keywords: ['service', 'offer', 'provide', 'what do you do', 'what can you help'],
-                response: "🚀 Automated CAS provides:\n• **Automation Services** - Streamline your workflows\n• **Web & Software Solutions** - Custom development\n• **Student Projects** - Guidance & support\n• **Technical Assistance** - Expert help with tools & technologies\n• **Computer Applications** - Enterprise solutions\n\nWhat area interests you?"
-            },
-            automation: {
-                keywords: ['automation', 'automate', 'workflow', 'process automation', 'rpa'],
-                response: "⚙️ **Automation Services** include:\n• Process automation (RPA)\n• Workflow optimization\n• System integration\n• Task automation scripts\n• Cost & time reduction\n\nWould you like details about any specific automation need?"
-            },
-            software: {
-                keywords: ['software', 'development', 'web', 'app', 'application', 'solution', 'build', 'create', 'code'],
-                response: "💻 **Software & Web Solutions** include:\n• Custom web applications\n• Desktop software\n• Mobile app development\n• API integration\n• Database design\n• Cloud solutions\n\nTell me about your project requirements!"
-            },
-            students: {
-                keywords: ['student', 'project', 'academic', 'learning', 'course', 'intern', 'guidance'],
-                response: "🎓 **Student Support** includes:\n• Project guidance & mentoring\n• Technical learning resources\n• Career pathway assistance\n• Internship opportunities\n• Portfolio development\n• Hands-on training\n\nWhat's your academic goal?"
-            },
-            technical: {
-                keywords: ['technical', 'tool', 'technology', 'python', 'java', 'javascript', 'database', 'cloud', 'framework', 'language', 'programming'],
-                response: "🛠️ **Technical Assistance** for:\n• Programming Languages (Python, Java, JavaScript, C++, PHP)\n• Web Frameworks (React, Django, Node.js, Laravel)\n• Databases (SQL, MongoDB, PostgreSQL)\n• Cloud Platforms (AWS, Azure, GCP)\n• DevOps & CI/CD\n• Data Science & AI\n\nWhich technology do you need help with?"
-            },
-            pricing: {
-                keywords: ['price', 'cost', 'pricing', 'how much', 'payment', 'rate', 'charge'],
-                response: "💰 Pricing varies based on project scope and requirements. Please contact the Automated CAS team directly through the website contact section for customized pricing and quotes."
-            },
-            contact: {
-                keywords: ['contact', 'email', 'phone', 'reach', 'support', 'urgent', 'complaint'],
-                response: "📞 For direct support:\n• Please contact the Automated CAS team through the website contact section\n• We're available for consultations and custom inquiries\n• Our team will assist with specific project requirements\n\nHow can we help you today?"
-            },
-            process: {
-                keywords: ['how does it work', 'process', 'steps', 'workflow', 'procedure', 'timeline'],
-                response: "📋 **Our Process**:\n1️⃣ Understand your needs\n2️⃣ Provide solutions & guidance\n3️⃣ Discuss implementation\n4️⃣ Deliver & support\n5️⃣ Ongoing assistance\n\nWhat would you like to start with?"
-            },
-            experience: {
-                keywords: ['experience', 'expertise', 'skilled', 'qualified', 'team', 'expert'],
-                response: "⭐ Our team specializes in:\n• Automation & AI solutions\n• Full-stack development\n• Student mentoring & guidance\n• Enterprise software\n• Technical consulting\n\nWith proven expertise across multiple domains. Ready to help!"
-            },
-            
-            // === WEBSITE FEATURES & SECTIONS ===
-            profile: {
-                keywords: ['profile', 'profile setup', 'personal information', 'complete profile', 'academic profile', 'faculty information'],
-                response: "👤 **Profile Setup Guide**:\n\nThe Profile Setup section helps you complete your academic profile:\n\n✓ **What to include:**\n• Legal full name\n• Employee ID\n• Department name\n• Faculty type (Regular/Visiting/Adjunct)\n• Academic rank (Assistant/Associate/Professor)\n• Contact phone\n• Research interests\n\n✓ **Features:**\n• Profile picture upload (drag & drop)\n• Progress tracking (0-100%)\n• Form validation\n• Auto-save functionality\n\n✓ **Benefits:**\n• 85% completion unlocks advanced features\n• Required for CAS evaluation\n• Creates professional profile visibility\n• Helps system personalize your experience\n\nWould you like help with any specific field?"
-            },
-            papers: {
-                keywords: ['paper', 'research', 'publication', 'journal', 'scopus', 'sci', 'indexed', 'publication track', 'research output'],
-                response: "📄 **Research Papers Section**:\n\nManage and track your published research:\n\n✓ **Key Info:**\n• Add publications with title, journal name, indexing type\n• Supported indexing: Scopus, SCI, UGC Care, Web of Science\n• Automatic point calculation based on indexing\n\n✓ **Points Earned:**\n• Scopus Indexed: 15 points\n• SCI Indexed: 20 points\n• UGC Care: 10 points\n• Web of Science: 18 points\n\n✓ **Features:**\n• View publication history\n• Track Scopus/SCI publications\n• Statistics dashboard\n• Points accumulation tracking\n\n✓ **Steps to Add Paper:**\n1. Enter paper title\n2. Insert journal name\n3. Select indexing type\n4. Enter publication year\n5. Submit for evaluation\n\nYour points contribute to CAS advancement! ⭐"
-            },
-            events: {
-                keywords: ['event', 'seminar', 'conference', 'workshop', 'webinar', 'event participation', 'professional development', 'attendance'],
-                response: "📅 **Events & Seminars Section**:\n\nTrack your professional development activities:\n\n✓ **Event Types Supported:**\n• Conferences: 12 points\n• Workshops: 8 points\n• Seminars: 6 points\n• Webinars: 4 points\n\n✓ **Information Required:**\n• Event name\n• Event type\n• Date of participation\n• Organizing body (IEEE, ACM, etc.)\n\n✓ **Benefits:**\n• Professional development tracking\n• Automatic point allocation\n• Event history records\n• Career advancement contribution\n\n✓ **How to Register:**\n1. Click 'Register Event Participation'\n2. Enter event details\n3. Select event type\n4. Choose participation date\n5. Submit for registration\n\n✓ **View Statistics:**\n• Total events attended\n• Breakdown by type\n• Points earned from events\n• Participation history\n\nStay active, earn points! 🎓"
-            },
-            committees: {
-                keywords: ['committee', 'committee work', 'committee assignment', 'committee membership', 'task', 'committee task', 'administrative role'],
-                response: "🏛️ **Committee Work Section**:\n\nManage your committee assignments and responsibilities:\n\n✓ **Your Active Committees:**\n• Academic Council (Department Level)\n• Research Ethics Committee (University Level)\n• Additional assignments as appointed\n\n✓ **Key Metrics:**\n• Total active committees\n• Pending tasks\n• Completed tasks\n• Points earned from committee work\n\n✓ **Committee Levels:**\n• Department Level: Local governance\n• University Level: Cross-departmental initiatives\n• Academic advisory roles\n\n✓ **Task Management:**\n• Track pending committee tasks\n• View completed assignments\n• Monitor contribution timeline\n• Earn recognition for active participation\n\n✓ **Benefits of Committee Work:**\n• Career advancement points\n• Leadership experience\n• University service recognition\n• Professional network building\n\n✓ **Average Contribution:**\n• 3-5 pending tasks per committee\n• Regular quarterly reviews\n• Points awarded on task completion\n\nYour committee contributions matter! 🌟"
-            },
-            analytics: {
-                keywords: ['analytics', 'scoring', 'analytics', 'performance', 'score', 'points progress', 'statistics', 'chart', 'growth'],
-                response: "📊 **Scoring Analytics Section**:\n\nView your CAS performance metrics and progress:\n\n✓ **Key Metrics Displayed:**\n• Total CAS Points: Sum of all achievements\n• Research Points: From publications\n• Event Points: From seminars & conferences\n• Points to Goal: Distance from 100-point target\n\n✓ **Analytics Features:**\n• Monthly points growth history\n• Visual charts with trend analysis\n• Performance comparison\n• Achievement timeline\n\n✓ **How Points Are Calculated:**\n📈 Research Publications:\n   - Scopus: 15 pts\n   - SCI: 20 pts\n   - UGC Care: 10 pts\n   - Web of Science: 18 pts\n\n📈 Events & Seminars:\n   - Conference: 12 pts\n   - Workshop: 8 pts\n   - Seminar: 6 pts\n   - Webinar: 4 pts\n\n📈 Committee Work: Varies by role\n\n✓ **Insights:**\n• Track monthly progress\n• Identify contribution areas\n• Plan advancement strategy\n• Monitor goal completion\n\n✓ **100-Point Milestone:**\n• Triggers career advancement\n• Unlocks premium recognition\n• Enables promotion eligibility\n• Recognizes excellence\n\nYour progress at a glance! 🎯"
-            },
-            export: {
-                keywords: ['export', 'download', 'report', 'data export', 'pdf', 'csv', 'spreadsheet'],
-                response: "📥 **Export Data Section**:\n\nDownload your academic performance records:\n\n✓ **Export Options:**\n\n1️⃣ **Full CAS Report (PDF)**\n   • Complete summary of all activities\n   • Official format for submissions\n   • Total points breakdown\n   • Publication & event records\n   • Committee assignments\n   • Perfect for: Promotions, applications\n\n2️⃣ **Raw Data Export (CSV)**\n   • Raw publication data\n   • Event participation records\n   • Spreadsheet-compatible format\n   • Easy to analyze & share\n   • Perfect for: Spreadsheets, analysis\n\n✓ **Use Cases:**\n• University promotion applications\n• Academic record documentation\n• Personal portfolio building\n• Research tracking\n• Career advancement submissions\n• External organization applications\n\n✓ **What's Included:**\n✓ All publication details\n✓ Event participation dates\n✓ Point allocations\n✓ Committee roles\n✓ Completion timestamps\n\n✓ **How to Download:**\n1. Navigate to 'Export Data'\n2. Select desired format (PDF/CSV)\n3. Click download button\n4. File saves to your device\n\nKeeep your records organized! 📋"
-            },
-            settings: {
-                keywords: ['settings', 'preferences', 'account settings', 'security', 'password', 'notification', 'privacy', 'email notification', 'public profile'],
-                response: "⚙️ **Settings & Account Section**:\n\nManage your preferences and security:\n\n✓ **Preferences Panel:**\n\n📧 **Email Notifications**\n   • Receive CAS deadline updates\n   • Score change alerts\n   • Committee task reminders\n   • Event registration confirmations\n   • Toggle on/off as needed\n\n👁️ **Public Profile Visibility**\n   • Allow other faculty to see your profile\n   • Control privacy level\n   • Share achievements with colleagues\n   • Build professional network\n\n✓ **Security Settings:**\n\n🔐 **Password Management**\n   • Update your password securely\n   • Current password verification required\n   • Minimum 8 characters\n   • Confirm new password match\n   • Immediate effect after change\n\n✓ **Account Safety:**\n   • Regular password updates recommended\n   • Never share credentials\n   • Secure login tokens\n   • Session management\n   • Logout on suspicious activity\n\n✓ **Privacy Controls:**\n   • Data protection\n   • Profile visibility options\n   • Notification preferences\n   • Account access logs\n\n✓ **Tips:**\n   • Update password every 3 months\n   • Use strong, unique passwords\n   • Enable notifications for important updates\n   • Review privacy settings regularly\n\nYour account, your control! 🛡️"
-            },
-            update: {
-                keywords: ['update', 'give me update', 'how is', 'status', 'progress', 'current', 'what is my', 'recent'],
-                response: "📈 **Get Your Update**:\n\nTo get detailed updates on specific areas:\n\n✓ **Ask about:**\n• \"What's my current score?\"\n• \"How many papers have I published?\"\n• \"Show my event history\"\n• \"What are my next tasks?\"\n• \"How am I progressing toward 100 points?\"\n• \"Update on committee work\"\n• \"Recent publications\"\n• \"Event attendance record\"\n\n✓ **Available Information:**\n📊 Points & Analytics\n📄 Publication status\n📅 Event participation\n🏛️ Committee assignments\n👤 Profile completeness\n\n✓ **Quick Access:**\nYou can visit each section in the dashboard for real-time updates:\n• Profile Setup → Your completeness %\n• Research Papers → Total publications & points\n• Events & Seminars → Attendance count\n• Committee Work → Active assignments\n• Scoring Analytics → Overall progress\n\nWhich area would you like an update on? 🎯"
-            }
-        };
+        // ===== CHATBOT WIDGET (Hugging Face AI) =====
 
-    
-        function getChatbotResponse(userMessage) {
-            const message = userMessage.toLowerCase().trim();
-            
-           
-            for (const [key, data] of Object.entries(chatbotKB)) {
-                for (const keyword of data.keywords) {
-                    if (message.includes(keyword)) {
-                        return data.response;
-                    }
-                }
+        // Conversation history for context
+        const chatHistory = [];
+
+        // Scrape live dashboard data from the current page
+        function getDashboardContext() {
+            // Grab all stat cards visible on screen
+            const statCards = document.querySelectorAll('.stat-card');
+            const stats = {};
+            statCards.forEach(card => {
+                const value = card.querySelector('.stat-value')?.innerText?.trim();
+                const label = card.querySelector('.stat-label')?.innerText?.trim();
+                if (value && label) stats[label] = value;
+            });
+
+            // Grab committee names
+            const committees = [];
+            document.querySelectorAll('.paper-title').forEach(el => {
+                const name = el.innerText?.trim();
+                if (name) committees.push(name);
+            });
+
+            // User info
+            const userName = state.currentUser.name || 'User';
+            const userRole = state.currentUser.role || 'Faculty';
+            const department = state.currentUser.department || '';
+            const totalPapers = state.papers.length;
+            const totalEvents = state.events.length;
+            const profileComplete = state.currentUser.profileComplete || 0;
+
+            // Current view
+            const currentView = state.currentView || 'profile';
+
+            // Build context string
+            let ctx = "LIVE DASHBOARD DATA FOR " + userName + " (" + userRole + (department ? ", " + department : "") + "):\n";
+            ctx += "Current Section: " + currentView + "\n";
+            ctx += "Profile Completion: " + profileComplete + "%\n";
+            ctx += "Total Publications: " + totalPapers + "\n";
+            ctx += "Total Events Attended: " + totalEvents + "\n";
+
+            if (Object.keys(stats).length > 0) {
+                ctx += "Visible Stats: ";
+                ctx += Object.entries(stats).map(([k, v]) => v + " " + k).join(", ") + "\n";
             }
-            
-          
-            return "I'm not sure about that specific question. I can help with:\n• **Automation services**\n• **Software development**\n• **Student projects**\n• **Technical tools & languages**\n• **General support**\n\nWhat would you like to know more about?";
+
+            if (committees.length > 0) {
+                ctx += "Committee Memberships: " + committees.join(", ") + "\n";
+            }
+
+            return ctx;
+        }
+
+        // Call Hugging Face AI via local proxy (avoids CORS)
+        async function getAIResponse(userMessage) {
+            const dashboardContext = getDashboardContext();
+
+            // Attach context to the user message
+            const enrichedMessage = "Context from my dashboard:\n" + dashboardContext + "\nMy question: " + userMessage;
+            chatHistory.push({ role: "user", content: enrichedMessage });
+
+            const systemPrompt = "You are the Automated CAS Assistant, a smart assistant embedded inside the Automated Career Advancement System (ACAS) dashboard. " +
+                "You have direct access to the user's live dashboard data which is provided as context in each message. " +
+                "RULES:\n" +
+                "1. Always answer using the specific numbers and data from the dashboard context. For example, if asked about pending tasks, cite the exact count from the context.\n" +
+                "2. Never give generic navigation tutorials, login instructions, or filtering guides unless the user explicitly asks for help navigating the UI.\n" +
+                "3. Be concise, friendly, and data-driven. Reference actual committee names, task counts, and points from the context.\n" +
+                "4. If the user asks something not covered by the dashboard data, answer helpfully but clarify what info you can see.\n" +
+                "5. Keep responses short (2-4 sentences max) unless the user asks for detail.";
+
+            const messages = [
+                { role: "system", content: systemPrompt },
+                ...chatHistory.slice(-6) // Keep last 6 messages for context (free-tier friendly)
+            ];
+
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    model: "Qwen/Qwen2.5-7B-Instruct",
+                    messages: messages,
+                    max_tokens: 256,
+                    temperature: 0.7,
+                }),
+            });
+
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error("API error " + response.status + ": " + errText);
+            }
+
+            const data = await response.json();
+            const reply = data.choices[0].message.content.trim();
+            chatHistory.push({ role: "assistant", content: reply });
+            return reply;
         }
 
        
@@ -1672,6 +1672,10 @@
                     #chatbotBtn:hover {
                         transform: scale(1.1) rotate(5deg);
                         box-shadow: 0 12px 32px rgba(37, 99, 235, 0.5);
+                    }
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.4; }
                     }
                 </style>
 
@@ -1784,19 +1788,55 @@
                 addMessage(text, false);
             }
 
-            // Send Message
-            function sendMessage() {
-                const text = chatInput.value.trim();
-                if (!text) return;
+            // Loading indicator
+            function addLoadingIndicator() {
+                const msgDiv = document.createElement('div');
+                msgDiv.id = 'chatLoading';
+                msgDiv.style.cssText = 'display: flex; justify-content: flex-start; animation: fadeInUp 0.3s ease;';
+                const bubble = document.createElement('div');
+                bubble.style.cssText = `
+                    padding: 12px 20px; border-radius: 16px;
+                    background: var(--bg-secondary); color: var(--text-secondary);
+                    font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                `;
+                bubble.textContent = 'AI is thinking...';
+                bubble.style.animation = 'pulse 1.2s ease-in-out infinite';
+                msgDiv.appendChild(bubble);
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
 
+            function removeLoadingIndicator() {
+                const loader = document.getElementById('chatLoading');
+                if (loader) loader.remove();
+            }
+
+            // Send Message (async - calls Hugging Face API)
+            let isSending = false;
+            async function sendMessage() {
+                const text = chatInput.value.trim();
+                if (!text || isSending) return;
+
+                isSending = true;
                 addMessage(text, true);
                 chatInput.value = '';
+                sendBtn.disabled = true;
+                sendBtn.style.opacity = '0.6';
+                addLoadingIndicator();
 
-                // Simulate typing delay
-                setTimeout(() => {
-                    const response = getChatbotResponse(text);
-                    addBotMessage(response);
-                }, 500);
+                try {
+                    const reply = await getAIResponse(text);
+                    removeLoadingIndicator();
+                    addBotMessage(reply);
+                } catch (err) {
+                    removeLoadingIndicator();
+                    console.error('Chatbot API error:', err);
+                    addBotMessage('Error: ' + err.message + '\n\nTip: Open browser console (F12) for details. If you see a CORS or network error, make sure you are running this via a local server (e.g. Live Server in VS Code), not opening the file directly.');
+                } finally {
+                    isSending = false;
+                    sendBtn.disabled = false;
+                    sendBtn.style.opacity = '1';
+                }
             }
 
             sendBtn.addEventListener('click', sendMessage);
