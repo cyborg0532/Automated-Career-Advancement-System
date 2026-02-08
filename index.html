@@ -1619,7 +1619,7 @@
                 ...chatHistory.slice(-6) // Keep last 6 messages for context (free-tier friendly)
             ];
 
-            const response = await fetch("/api/chat", {
+            const response = await fetch("/.netlify/functions/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
