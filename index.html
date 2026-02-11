@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,42 +9,50 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        
+
+
         :root {
             /* PROFESSIONAL SOLID PALETTE -- NO GRADIENTS */
             --bg-primary: #ffffff;
-            --bg-secondary: #f1f5f9;  /* Slate 100 */
-            --bg-tertiary: #cbd5e1;   /* Slate 300 */
-            
-            --accent-primary: #2563eb;   /* Royal Blue 600 */
-            --accent-hover: #1d4ed8;     /* Royal Blue 700 */
-            --accent-dark: #0f172a;      /* Slate 900 */
-            
-            --text-primary: #0f172a;     /* Slate 900 */
-            --text-secondary: #475569;   /* Slate 600 */
-            --text-muted: #64748b;       /* Slate 500 */
+            --bg-secondary: #f1f5f9;
+            /* Slate 100 */
+            --bg-tertiary: #cbd5e1;
+            /* Slate 300 */
+
+            --accent-primary: #2563eb;
+            /* Royal Blue 600 */
+            --accent-hover: #1d4ed8;
+            /* Royal Blue 700 */
+            --accent-dark: #0f172a;
+            /* Slate 900 */
+
+            --text-primary: #0f172a;
+            /* Slate 900 */
+            --text-secondary: #475569;
+            /* Slate 600 */
+            --text-muted: #64748b;
+            /* Slate 500 */
             --text-inverse: #ffffff;
-            
+
             --border-color: #e2e8f0;
             --card-bg: #ffffff;
-            
+
             --success: #059669;
             --warning: #d97706;
             --danger: #dc2626;
-            
+
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
@@ -54,7 +63,7 @@
             line-height: 1.5;
             position: relative;
         }
-        
+
         /* Animated background particles */
         body::before {
             content: '';
@@ -63,17 +72,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 50%);
             animation: floatParticles 20s ease-in-out infinite;
             pointer-events: none;
             z-index: 0;
         }
-        
+
         @keyframes floatParticles {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(20px, -20px) scale(1.1); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(20px, -20px) scale(1.1);
+            }
         }
 
         /* CUSTOM SCROLLBAR */
@@ -81,17 +97,20 @@
             width: 8px;
             height: 8px;
         }
+
         ::-webkit-scrollbar-track {
-            background: transparent; 
+            background: transparent;
         }
+
         ::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
+            background: #cbd5e1;
             border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
+            background: #94a3b8;
         }
-        
+
         /* Login Page Styles */
         .auth-container {
             min-height: 100vh;
@@ -103,7 +122,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .auth-card {
             display: grid;
             grid-template-columns: 45% 55%;
@@ -112,63 +131,89 @@
             height: 600px;
             background: white;
             border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
             overflow: hidden;
             border: 1px solid rgba(226, 232, 240, 0.8);
             animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 2;
         }
-        
+
         @keyframes slideUpFade {
-            from { 
+            from {
                 opacity: 0;
                 transform: translateY(40px) scale(0.95);
             }
-            to { 
+
+            to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
-        
+
         .auth-visual {
             background-color: var(--accent-dark);
             padding: 48px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; 
+            justify-content: space-between;
             position: relative;
             overflow: hidden;
             color: white;
         }
 
         .auth-visual .auth-illustration {
-            position: absolute; right: 16px; top: 16px;
-            width: 56%; max-width: 420px; height: auto;
-            border-radius: 12px; box-shadow: 0 10px 30px rgba(2,6,23,0.25);
-            opacity: 0.98; pointer-events: none;
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            width: 56%;
+            max-width: 420px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.25);
+            opacity: 0.98;
+            pointer-events: none;
             transform: translateZ(0);
         }
-        
+
         .auth-visual::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: radial-gradient(circle at top right, #334155 0%, transparent 60%);
             opacity: 0.4;
             animation: shimmer 8s ease-in-out infinite;
         }
-        
+
         @keyframes shimmer {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.6; }
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
         }
-        
+
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
         }
-        
+
         .logo-container {
             width: 64px;
             height: 64px;
@@ -185,19 +230,26 @@
             overflow: hidden;
             animation: float 3s ease-in-out infinite;
         }
-        
+
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
         }
-        
+
         .logo-icon {
             width: 36px;
             height: 36px;
             fill: white;
             filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
         }
-        
+
         .auth-branding h1 {
             font-size: 32px;
             font-weight: 800;
@@ -207,7 +259,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .auth-branding p {
             font-size: 15px;
             opacity: 0.85;
@@ -215,7 +267,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .auth-stats {
             display: flex;
             gap: 32px;
@@ -225,23 +277,23 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .auth-stat {
             flex: 1;
         }
-        
+
         .auth-stat h3 {
             font-size: 28px;
             font-weight: 800;
             margin-bottom: 4px;
             color: white;
         }
-        
+
         .auth-stat p {
             font-size: 13px;
             opacity: 0.75;
         }
-        
+
         .auth-form-container {
             padding: 48px;
             display: flex;
@@ -251,24 +303,24 @@
             position: relative;
             overflow-y: auto;
         }
-        
+
         .auth-form-container h2 {
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 8px;
             color: var(--text-primary);
         }
-        
-        .auth-form-container > p {
+
+        .auth-form-container>p {
             color: var(--text-secondary);
             margin-bottom: 32px;
             font-size: 15px;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -276,7 +328,7 @@
             font-size: 14px;
             color: var(--text-primary);
         }
-        
+
         .form-group input,
         .form-group select {
             width: 100%;
@@ -289,14 +341,14 @@
             background: var(--bg-primary);
             color: var(--text-primary);
         }
-        
+
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--accent-primary);
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
-        
+
         .btn-primary {
             width: 100%;
             padding: 16px;
@@ -312,7 +364,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .btn-primary::before {
             content: '';
             position: absolute;
@@ -325,52 +377,52 @@
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
-        
+
         .btn-primary:hover::before {
             width: 300px;
             height: 300px;
         }
-        
+
         .btn-primary:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
         }
-        
+
         .btn-primary:active {
             transform: translateY(0);
         }
-        
+
         .auth-footer {
             margin-top: 24px;
             text-align: center;
             font-size: 14px;
             color: var(--text-secondary);
         }
-        
+
         .auth-footer a {
             color: var(--accent-primary);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
-        
+
         .auth-footer a:hover {
             color: var(--accent-hover);
             text-decoration: underline;
         }
-        
+
         .hidden {
             display: none !important;
         }
-        
+
         /* Dashboard Styles */
         .main-app {
             display: flex;
             min-height: 100vh;
             background-color: var(--bg-secondary);
         }
-        
+
         /* Sidebar */
         .sidebar {
             width: 260px;
@@ -386,7 +438,7 @@
             box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .sidebar-header {
             padding: 24px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -394,7 +446,7 @@
             align-items: center;
             gap: 12px;
         }
-        
+
         .sidebar-logo {
             width: 40px;
             height: 40px;
@@ -405,26 +457,26 @@
             justify-content: center;
             flex-shrink: 0;
         }
-        
+
         .sidebar-title h2 {
             font-size: 18px;
             font-weight: 700;
             margin: 0;
             letter-spacing: -0.02em;
         }
-        
+
         .sidebar-title p {
             font-size: 11px;
             opacity: 0.7;
             margin: 2px 0 0 0;
         }
-        
+
         .nav-menu {
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
         }
-        
+
         .nav-item {
             padding: 12px 20px;
             display: flex;
@@ -438,24 +490,24 @@
             font-weight: 500;
             position: relative;
         }
-        
+
         .nav-item i {
             width: 20px;
             font-size: 16px;
         }
-        
+
         .nav-item:hover {
             background: rgba(255, 255, 255, 0.05);
             color: white;
         }
-        
+
         .nav-item.active {
             background: rgba(37, 99, 235, 0.15);
             border-left-color: var(--accent-primary);
             color: white;
             font-weight: 600;
         }
-        
+
         .nav-item.active::before {
             content: '';
             position: absolute;
@@ -467,7 +519,7 @@
             background: var(--accent-primary);
             border-radius: 4px 0 0 4px;
         }
-        
+
         .user-section {
             padding: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -475,7 +527,7 @@
             align-items: center;
             gap: 12px;
         }
-        
+
         .user-avatar {
             width: 40px;
             height: 40px;
@@ -488,12 +540,12 @@
             font-size: 16px;
             flex-shrink: 0;
         }
-        
+
         .user-info {
             flex: 1;
             min-width: 0;
         }
-        
+
         .user-info h4 {
             font-size: 14px;
             font-weight: 600;
@@ -502,13 +554,13 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        
+
         .user-info p {
             font-size: 12px;
             opacity: 0.7;
             margin: 2px 0 0 0;
         }
-        
+
         .logout-btn {
             padding: 6px;
             background: rgba(255, 255, 255, 0.1);
@@ -519,12 +571,12 @@
             transition: all 0.2s ease;
             flex-shrink: 0;
         }
-        
+
         .logout-btn:hover {
             background: rgba(220, 38, 38, 0.2);
             transform: scale(1.05);
         }
-        
+
         /* Main Content Area */
         .main-content {
             flex: 1;
@@ -532,7 +584,7 @@
             padding: 32px;
             min-height: 100vh;
         }
-        
+
         .content-header {
             background: white;
             padding: 28px 32px;
@@ -541,19 +593,19 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
         }
-        
+
         .content-header h1 {
             font-size: 28px;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
-        
+
         .content-header p {
             color: var(--text-secondary);
             font-size: 15px;
         }
-        
+
         /* Dashboard Grid */
         .dashboard-grid {
             display: grid;
@@ -561,7 +613,7 @@
             gap: 24px;
             margin-bottom: 32px;
         }
-        
+
         .stat-card {
             background: white;
             padding: 24px;
@@ -572,7 +624,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .stat-card::before {
             content: '';
             position: absolute;
@@ -585,23 +637,23 @@
             transform-origin: left;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .stat-card:hover::before {
             transform: scaleX(1);
         }
-        
+
         .stat-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-lg);
         }
-        
+
         .stat-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 16px;
         }
-        
+
         .stat-icon {
             width: 48px;
             height: 48px;
@@ -613,20 +665,20 @@
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.05));
             color: var(--accent-primary);
         }
-        
+
         .stat-value {
             font-size: 32px;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 4px;
         }
-        
+
         .stat-label {
             font-size: 14px;
             color: var(--text-secondary);
             font-weight: 500;
         }
-        
+
         .stat-change {
             font-size: 13px;
             margin-top: 12px;
@@ -637,17 +689,17 @@
             gap: 4px;
             font-weight: 600;
         }
-        
+
         .stat-change.positive {
             background: rgba(5, 150, 105, 0.1);
             color: var(--success);
         }
-        
+
         .stat-change.negative {
             background: rgba(220, 38, 38, 0.1);
             color: var(--danger);
         }
-        
+
         /* Charts Section */
         .charts-grid {
             display: grid;
@@ -655,7 +707,7 @@
             gap: 24px;
             margin-bottom: 32px;
         }
-        
+
         .chart-card {
             background: white;
             padding: 28px;
@@ -663,20 +715,20 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
         }
-        
+
         .chart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
         }
-        
+
         .chart-header h3 {
             font-size: 18px;
             font-weight: 700;
             color: var(--text-primary);
         }
-        
+
         .chart-period {
             padding: 8px 16px;
             background: var(--bg-secondary);
@@ -688,13 +740,13 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .chart-period:hover {
             background: var(--accent-primary);
             color: white;
             border-color: var(--accent-primary);
         }
-        
+
         /* Tables */
         .table-card {
             background: white;
@@ -703,7 +755,7 @@
             border: 1px solid var(--border-color);
             overflow: hidden;
         }
-        
+
         .table-header {
             padding: 24px 28px;
             border-bottom: 1px solid var(--border-color);
@@ -711,18 +763,18 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .table-header h3 {
             font-size: 18px;
             font-weight: 700;
             color: var(--text-primary);
         }
-        
+
         .table-actions {
             display: flex;
             gap: 12px;
         }
-        
+
         .btn-secondary {
             padding: 10px 18px;
             background: var(--bg-secondary);
@@ -737,7 +789,7 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .btn-secondary:hover {
             background: var(--accent-primary);
             color: white;
@@ -745,16 +797,16 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        
+
         thead {
             background: var(--bg-secondary);
         }
-        
+
         th {
             padding: 16px 28px;
             text-align: left;
@@ -764,26 +816,26 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        
+
         td {
             padding: 18px 28px;
             border-bottom: 1px solid var(--border-color);
             font-size: 14px;
             color: var(--text-primary);
         }
-        
+
         tr:last-child td {
             border-bottom: none;
         }
-        
+
         tbody tr {
             transition: background 0.2s ease;
         }
-        
+
         tbody tr:hover {
             background: var(--bg-secondary);
         }
-        
+
         .status-badge {
             padding: 6px 12px;
             border-radius: 8px;
@@ -791,22 +843,22 @@
             font-weight: 600;
             display: inline-block;
         }
-        
+
         .status-badge.completed {
             background: rgba(5, 150, 105, 0.1);
             color: var(--success);
         }
-        
+
         .status-badge.in-progress {
             background: rgba(217, 119, 6, 0.1);
             color: var(--warning);
         }
-        
+
         .status-badge.pending {
             background: rgba(37, 99, 235, 0.1);
             color: var(--accent-primary);
         }
-        
+
         /* Action buttons in table */
         .action-btn {
             padding: 6px 12px;
@@ -818,34 +870,35 @@
             transition: all 0.2s ease;
             margin-right: 8px;
         }
-        
+
         .action-btn:hover {
             background: var(--accent-primary);
             color: white;
             border-color: var(--accent-primary);
         }
-        
+
         /* View-specific styles */
         .view-section {
             display: none;
         }
-        
+
         .view-section.active {
             display: block;
             animation: fadeIn 0.4s ease;
         }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         /* Profile Setup Page Styles */
         .profile-setup-container {
             min-height: 100vh;
@@ -863,7 +916,7 @@
             max-width: 900px;
             background: white;
             border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
             overflow: hidden;
             border: 1px solid rgba(226, 232, 240, 0.8);
             animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -882,7 +935,10 @@
         .profile-setup-header::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: radial-gradient(circle at top center, #334155 0%, transparent 60%);
             opacity: 0.4;
         }
@@ -967,34 +1023,34 @@
             .dashboard-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .charts-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
             }
-            
+
             .sidebar.active {
                 transform: translateX(0);
             }
-            
+
             .main-content {
                 margin-left: 0;
             }
-            
+
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .auth-card {
                 grid-template-columns: 1fr;
                 height: auto;
             }
-            
+
             .auth-visual {
                 display: none;
             }
@@ -1022,6 +1078,7 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1045,6 +1102,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Sign Up Page -->
     <div id="signupPage" class="auth-container">
@@ -1053,12 +1111,14 @@
                 <div style="position: relative; z-index: 1;">
                     <div class="logo-container">
                         <svg class="logo-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.54-7-10V8.3l7-3.11 7 3.11V10c0 4.46-3.14 9.04-7 10z"/>
+                            <path
+                                d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.54-7-10V8.3l7-3.11 7 3.11V10c0 4.46-3.14 9.04-7 10z" />
                         </svg>
                     </div>
                     <div class="auth-branding">
                         <h1>PIRATES CAS</h1>
-                        <p>Join our comprehensive assessment system to track and improve academic performance with data-driven insights.</p>
+                        <p>Join our comprehensive assessment system to track and improve academic performance with
+                            data-driven insights.</p>
                     </div>
                 </div>
                 <div class="auth-stats">
@@ -1075,9 +1135,9 @@
             <div class="auth-form-container">
                 <h2>Create Account</h2>
                 <p>Start your journey with PIRATES CAS</p>
-                
+
                 <div id="signupAlert"></div>
-                
+
                 <form id="signupForm">
                     <div class="form-group">
                         <label for="signupName">Full Name</label>
@@ -1105,7 +1165,7 @@
                     </div>
                     <button type="submit" class="btn-primary">Create Account</button>
                 </form>
-                
+
                 <div class="auth-footer">
                     Already have an account? <a href="#" id="goToLogin">Sign In</a>
                 </div>
@@ -1120,12 +1180,14 @@
                 <div style="position: relative; z-index: 1;">
                     <div class="logo-container">
                         <svg class="logo-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.54-7-10V8.3l7-3.11 7 3.11V10c0 4.46-3.14 9.04-7 10z"/>
+                            <path
+                                d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.54-7-10V8.3l7-3.11 7 3.11V10c0 4.46-3.14 9.04-7 10z" />
                         </svg>
                     </div>
                     <div class="auth-branding">
                         <h1>PIRATES CAS</h1>
-                        <p>Comprehensive Assessment System for tracking and improving student performance through intelligent analytics.</p>
+                        <p>Comprehensive Assessment System for tracking and improving student performance through
+                            intelligent analytics.</p>
                     </div>
                 </div>
                 <div class="auth-stats">
@@ -1142,9 +1204,9 @@
             <div class="auth-form-container">
                 <h2>Welcome Back</h2>
                 <p>Sign in to continue to PIRATES CAS</p>
-                
+
                 <div id="loginAlert"></div>
-                
+
                 <form id="loginForm">
                     <div class="form-group">
                         <label for="loginEmail">Email Address</label>
@@ -1156,7 +1218,7 @@
                     </div>
                     <button type="submit" class="btn-primary">Sign In</button>
                 </form>
-                
+
                 <div class="auth-footer">
                     Don't have an account? <a href="#" id="goToSignup">Sign Up</a>
                 </div>
@@ -1251,7 +1313,8 @@
             <div class="sidebar-header">
                 <div class="sidebar-logo">
                     <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
-                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.54-7-10V8.3l7-3.11 7 3.11V10c0 4.46-3.14 9.04-7 10z"/>
+                        <path
+                            d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.54-7-10V8.3l7-3.11 7 3.11V10c0 4.46-3.14 9.04-7 10z" />
                     </svg>
                 </div>
                 <div class="sidebar-title">
@@ -1259,7 +1322,7 @@
                     <p>Assessment System</p>
                 </div>
             </div>
-            
+
             <nav class="nav-menu">
                 <div class="nav-item active" data-view="dashboard">
                     <i class="fas fa-home"></i>
@@ -1286,7 +1349,7 @@
                     <span>Settings</span>
                 </div>
             </nav>
-            
+
             <div class="user-section">
                 <div class="user-avatar" id="userAvatar">U</div>
                 <div class="user-info">
@@ -1298,7 +1361,7 @@
                 </button>
             </div>
         </aside>
-        
+
         <!-- Main Content -->
         <main class="main-content">
             <!-- Dashboard View -->
@@ -1307,7 +1370,7 @@
                     <h1>Dashboard Overview</h1>
                     <p>Welcome back! Here's what's happening with your assessments today.</p>
                 </div>
-                
+
                 <div class="dashboard-grid">
                     <div class="stat-card">
                         <div class="stat-header">
@@ -1324,7 +1387,7 @@
                             <span>12% from last month</span>
                         </div>
                     </div>
-                    
+
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
@@ -1340,7 +1403,7 @@
                             <span>8% increase</span>
                         </div>
                     </div>
-                    
+
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
@@ -1356,7 +1419,7 @@
                             <span>2.3% decrease</span>
                         </div>
                     </div>
-                    
+
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
@@ -1373,7 +1436,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="charts-grid">
                     <div class="chart-card">
                         <div class="chart-header">
@@ -1382,7 +1445,7 @@
                         </div>
                         <canvas id="performanceChart"></canvas>
                     </div>
-                    
+
                     <div class="chart-card">
                         <div class="chart-header">
                             <h3>Grade Distribution</h3>
@@ -1390,7 +1453,7 @@
                         <canvas id="gradeChart"></canvas>
                     </div>
                 </div>
-                
+
                 <div class="table-card">
                     <div class="table-header">
                         <h3>Recent Assessments</h3>
@@ -1458,7 +1521,7 @@
                     </table>
                 </div>
             </div>
-            
+
             <!-- Assessments View -->
             <div id="assessmentsView" class="view-section">
                 <div class="content-header">
@@ -1504,7 +1567,7 @@
                     </table>
                 </div>
             </div>
-            
+
             <!-- Students View -->
             <div id="studentsView" class="view-section">
                 <div class="content-header">
@@ -1547,7 +1610,7 @@
                     </table>
                 </div>
             </div>
-            
+
             <!-- Analytics View -->
             <div id="analyticsView" class="view-section">
                 <div class="content-header">
@@ -1569,7 +1632,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Reports View -->
             <div id="reportsView" class="view-section">
                 <div class="content-header">
@@ -1590,7 +1653,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Settings View -->
             <div id="settingsView" class="view-section">
                 <div class="content-header">
@@ -1634,7 +1697,7 @@
         function showPage(pageName) {
             // Hide all pages
             Object.values(pages).forEach(page => page.classList.add('hidden'));
-            
+
             // Show requested page
             if (pages[pageName]) {
                 pages[pageName].classList.remove('hidden');
@@ -1655,95 +1718,107 @@
         }
 
         // ==================== SIGN UP LOGIC ====================
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
+        document.getElementById('signupForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
             const password = document.getElementById('signupPassword').value;
             const confirmPassword = document.getElementById('signupConfirmPassword').value;
             const role = document.getElementById('signupRole').value;
-            
-            // Validation
+
             if (!name || !email || !password || !confirmPassword || !role) {
                 showAlert('signupAlert', 'Please fill in all fields', 'error');
                 return;
             }
-            
+
             if (password !== confirmPassword) {
                 showAlert('signupAlert', 'Passwords do not match', 'error');
                 return;
             }
-            
+
             if (password.length < 6) {
                 showAlert('signupAlert', 'Password must be at least 6 characters', 'error');
                 return;
             }
-            
-            // Save to localStorage
-            localStorage.setItem('cas_user_name', name);
-            localStorage.setItem('cas_user_email', email);
-            localStorage.setItem('cas_user_password', password);
-            localStorage.setItem('cas_user_role', role);
-            
-            showAlert('signupAlert', 'Account created successfully! Redirecting to login...', 'success');
-            
-            // Redirect to login after 1.5 seconds
-            setTimeout(() => {
-                showPage('login');
-                document.getElementById('signupForm').reset();
-            }, 1500);
+
+            try {
+                const response = await fetch('/api/auth/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password, role })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert('signupAlert', 'Account created successfully! Redirecting to login...', 'success');
+                    setTimeout(() => {
+                        showPage('login');
+                        document.getElementById('signupForm').reset();
+                    }, 1500);
+                } else {
+                    showAlert('signupAlert', data.message || 'Signup failed', 'error');
+                }
+            } catch (error) {
+                console.error('Signup Error:', error);
+                showAlert('signupAlert', 'Server error. Please try again.', 'error');
+            }
         });
 
         // ==================== LOGIN LOGIC ====================
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
-            
-            // Get stored credentials
-            const storedEmail = localStorage.getItem('cas_user_email');
-            const storedPassword = localStorage.getItem('cas_user_password');
-            const storedName = localStorage.getItem('cas_user_name');
-            const storedRole = localStorage.getItem('cas_user_role');
-            
-            // Validation
-            if (!storedEmail) {
-                showAlert('loginAlert', 'No account found. Please sign up first.', 'error');
-                return;
-            }
-            
-            if (email !== storedEmail || password !== storedPassword) {
-                showAlert('loginAlert', 'Invalid email or password', 'error');
-                return;
-            }
-            
-            // Update state
-            state.currentUser.isLoggedIn = true;
-            state.currentUser.name = storedName;
-            state.currentUser.email = storedEmail;
-            state.currentUser.role = storedRole;
-            
-            // Check profile completion
-            const profileComplete = parseInt(localStorage.getItem('cas_profile_complete') || '0');
-            state.currentUser.profileComplete = profileComplete;
-            
-            showAlert('loginAlert', 'Login successful!', 'success');
-            
-            // Redirect based on profile completion
-            setTimeout(() => {
-                if (profileComplete < 80) {
-                    // Profile incomplete - go to profile setup
-                    showPage('profileSetup');
-                    updateProfileProgress();
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Update state
+                    state.currentUser.isLoggedIn = true;
+                    state.currentUser.name = data.name;
+                    state.currentUser.email = data.email;
+                    state.currentUser.role = data.role;
+                    state.currentUser.profileComplete = data.profileComplete;
+
+                    // Save token
+                    localStorage.setItem('cas_token', data.token);
+
+                    showAlert('loginAlert', 'Login successful!', 'success');
+
+                    setTimeout(() => {
+                        if (data.profileComplete < 80) {
+                            showPage('profileSetup');
+                            // Populate profile form if data exists
+                            if (data.profileData) {
+                                Object.keys(data.profileData).forEach(key => {
+                                    const el = document.getElementById('profile' + key.charAt(0).toUpperCase() + key.slice(1));
+                                    if (el) el.value = data.profileData[key];
+                                });
+                            }
+                            updateProfileProgress();
+                        } else {
+                            initializeDashboard();
+                            showPage('mainApp');
+                        }
+                        document.getElementById('loginForm').reset();
+                    }, 1000);
                 } else {
-                    // Profile complete - go to dashboard
-                    initializeDashboard();
-                    showPage('mainApp');
+                    showAlert('loginAlert', data.message || 'Invalid email or password', 'error');
                 }
-                document.getElementById('loginForm').reset();
-            }, 1000);
+            } catch (error) {
+                console.error('Login Error:', error);
+                showAlert('loginAlert', 'Server connection failed', 'error');
+            }
         });
 
         // ==================== PROFILE SETUP LOGIC ====================
@@ -1760,28 +1835,23 @@
         function updateProfileProgress() {
             let filledFields = 0;
             const totalFields = profileFields.length;
-            
+
             profileFields.forEach(fieldId => {
                 const field = document.getElementById(fieldId);
-                const value = field.value.trim();
-                
-                // Load saved value
-                const savedValue = localStorage.getItem('cas_' + fieldId);
-                if (savedValue) {
-                    field.value = savedValue;
-                }
-                
-                if (field.value.trim()) {
+                if (field && field.value.trim()) {
                     filledFields++;
                 }
             });
-            
+
             const progress = Math.round((filledFields / totalFields) * 100);
             state.currentUser.profileComplete = progress;
-            
-            document.getElementById('profileProgressBar').style.width = progress + '%';
-            document.getElementById('profileProgressText').textContent = progress + '%';
-            
+
+            const progressBar = document.getElementById('profileProgressBar');
+            const progressText = document.getElementById('profileProgressText');
+
+            if (progressBar) progressBar.style.width = progress + '%';
+            if (progressText) progressText.textContent = progress + '%';
+
             return progress;
         }
 
@@ -1791,58 +1861,114 @@
             field.addEventListener('input', updateProfileProgress);
         });
 
-        document.getElementById('profileSetupForm').addEventListener('submit', function(e) {
+        document.getElementById('profileSetupForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
-            // Save all profile fields
+
+            const profileData = {};
+
+            // Explicit mapping to match User.js schema
+            const fieldMapping = {
+                'profilePhone': 'phone',
+                'profileDepartment': 'department',
+                'profileExperience': 'experience',
+                'profileSpecialization': 'specialization',
+                'profileQualification': 'qualification',
+                'profileEmployeeId': 'employeeId',
+                'profileBio': 'bio'
+            };
+
             profileFields.forEach(fieldId => {
-                const value = document.getElementById(fieldId).value.trim();
-                localStorage.setItem('cas_' + fieldId, value);
+                const val = document.getElementById(fieldId).value.trim();
+                const schemaKey = fieldMapping[fieldId];
+
+                if (val && schemaKey) {
+                    profileData[schemaKey] = val;
+                }
             });
-            
-            const progress = updateProfileProgress();
-            
-            if (progress < 80) {
-                alert('Please fill in at least 80% of your profile to continue.');
-                return;
+
+            const progress = updateProfileProgress(); // Logic reused for UI feedback
+
+            const token = localStorage.getItem('cas_token');
+            if (!token) return showPage('login');
+
+            try {
+                const response = await fetch('/api/profile/update', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        profileData,
+                        profileComplete: progress
+                    })
+                });
+
+                if (response.ok) {
+                    if (progress < 80) {
+                        alert('Profile saved. Please complete at least 80% to continue.');
+                        return;
+                    }
+
+                    state.currentUser.profileComplete = progress;
+
+                    // Initialize and show dashboard
+                    initializeDashboard();
+                    showPage('mainApp');
+                } else {
+                    alert('Failed to update profile');
+                }
+            } catch (err) {
+                console.error('Profile update error', err);
+                alert('Error updating profile');
             }
-            
-            // Mark profile as complete
-            localStorage.setItem('cas_profile_complete', '100');
-            state.currentUser.profileComplete = 100;
-            
-            // Initialize and show dashboard
-            initializeDashboard();
-            showPage('mainApp');
         });
 
         // ==================== DASHBOARD INITIALIZATION ====================
-        function initializeDashboard() {
-            // Update user info in sidebar
-            const name = localStorage.getItem('cas_user_name') || 'User';
-            const role = localStorage.getItem('cas_user_role') || 'Faculty';
-            
-            document.getElementById('userName').textContent = name;
-            document.getElementById('userRole').textContent = role;
-            document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
-            
-            // Initialize charts
-            initializeCharts();
+        async function initializeDashboard() {
+            const token = localStorage.getItem('cas_token');
+            if (!token) return showPage('login');
+
+            try {
+                const response = await fetch('/api/profile', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // Update UI
+                    document.getElementById('userName').textContent = data.name || 'User';
+                    document.getElementById('userRole').textContent = data.role || 'Member';
+                    document.getElementById('userAvatar').textContent = (data.name || 'U').charAt(0).toUpperCase();
+
+                    state.currentUser = { ...state.currentUser, ...data };
+
+                    // Initialize charts
+                    initializeCharts();
+                } else {
+                    // Token invalid?
+                    localStorage.removeItem('cas_token');
+                    showPage('login');
+                }
+            } catch (error) {
+                console.error('Error fetching profile', error);
+            }
         }
 
         // ==================== NAVIGATION BETWEEN PAGES ====================
-        document.getElementById('goToLogin').addEventListener('click', function(e) {
+        document.getElementById('goToLogin').addEventListener('click', function (e) {
             e.preventDefault();
             showPage('login');
         });
 
-        document.getElementById('goToSignup').addEventListener('click', function(e) {
+        document.getElementById('goToSignup').addEventListener('click', function (e) {
             e.preventDefault();
             showPage('signup');
         });
 
         // ==================== LOGOUT ====================
-        document.getElementById('logoutBtn').addEventListener('click', function() {
+        document.getElementById('logoutBtn').addEventListener('click', function () {
             if (confirm('Are you sure you want to logout?')) {
                 state.currentUser.isLoggedIn = false;
                 state.currentUser.profileComplete = 0;
@@ -1852,17 +1978,17 @@
 
         // ==================== VIEW SWITCHING ====================
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 const viewName = this.dataset.view;
-                
+
                 // Update active nav item
                 document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
                 this.classList.add('active');
-                
+
                 // Show corresponding view
                 document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
                 document.getElementById(viewName + 'View').classList.add('active');
-                
+
                 state.currentView = viewName;
             });
         });
@@ -1897,7 +2023,7 @@
                     }
                 });
             }
-            
+
             // Grade Distribution Chart
             const gradeCtx = document.getElementById('gradeChart');
             if (gradeCtx) {
@@ -1925,7 +2051,7 @@
                     }
                 });
             }
-            
+
             // Subject Performance Chart
             const subjectCtx = document.getElementById('subjectChart');
             if (subjectCtx) {
@@ -1951,7 +2077,7 @@
                     }
                 });
             }
-            
+
             // Assessment Type Chart
             const assessmentCtx = document.getElementById('assessmentTypeChart');
             if (assessmentCtx) {
@@ -1976,42 +2102,56 @@
         }
 
         // ==================== INITIALIZATION ====================
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', async function () {
             // Check if user is already logged in
-            const storedEmail = localStorage.getItem('cas_user_email');
-            const profileComplete = parseInt(localStorage.getItem('cas_profile_complete') || '0');
-            
-            if (storedEmail) {
-                // User has an account
-                if (profileComplete >= 80) {
-                    // Profile complete - show dashboard
-                    state.currentUser.isLoggedIn = true;
-                    state.currentUser.name = localStorage.getItem('cas_user_name');
-                    state.currentUser.email = storedEmail;
-                    state.currentUser.role = localStorage.getItem('cas_user_role');
-                    state.currentUser.profileComplete = profileComplete;
-                    
-                    initializeDashboard();
-                    showPage('mainApp');
-                } else {
-                    // Profile incomplete - show login
+            const token = localStorage.getItem('cas_token');
+
+            if (token) {
+                // validate token by fetching profile
+                try {
+                    const response = await fetch('/api/profile', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        state.currentUser.isLoggedIn = true;
+                        state.currentUser.name = data.name;
+                        state.currentUser.email = data.email;
+                        state.currentUser.role = data.role;
+                        state.currentUser.profileComplete = data.profileComplete;
+
+                        // If profile is incomplete (<80%), redirect to setup
+                        if (data.profileComplete < 80) {
+                            showPage('profileSetup');
+                            updateProfileProgress();
+                        } else {
+                            initializeDashboard();
+                            showPage('mainApp');
+                        }
+                    } else {
+                        localStorage.removeItem('cas_token');
+                        showPage('login');
+                    }
+                } catch (e) {
+                    // Start fresh
                     showPage('login');
                 }
             } else {
-                // New user - show signup
+                // New user - show signup or login
+                // Code originally showed signup first?
                 showPage('signup');
             }
         });
 
         // ==================== CHATBOT INTEGRATION ====================
         // Hugging Face API Configuration
-        
+
         async function getAIResponse(userMessage) {
             try {
-                const response = await fetch(MODEL_URL, {
+                // Use our own backend proxy
+                const response = await fetch('/api/chat', {
                     method: "POST",
                     headers: {
-                        "Authorization": `Bearer ${HF_API_KEY}`,
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
@@ -2021,9 +2161,6 @@
                             temperature: 0.7,
                             top_p: 0.9,
                             return_full_text: false
-                        },
-                        options: {
-                            wait_for_model: true
                         }
                     })
                 });
@@ -2042,13 +2179,19 @@
                 } else if (data && data.error) {
                     throw new Error(data.error);
                 } else {
-                    throw new Error('Unexpected API response format');
+                    // Some models return just the text or different format
+                    if (data.generated_text) return data.generated_text;
+                    // Fallback check
+                    if (Array.isArray(data) && data.length > 0) return JSON.stringify(data[0]);
+                    return "I couldn't understand the response.";
                 }
             } catch (error) {
                 console.error('Full error:', error);
                 throw new Error(`Failed to get AI response: ${error.message}`);
             }
         }
+
+
 
         // Chatbot UI Initialization
         function initializeChatbot() {
@@ -2156,7 +2299,7 @@
                     display: flex; justify-content: ${isUser ? 'flex-end' : 'flex-start'};
                     animation: fadeInUp 0.3s ease;
                 `;
-                
+
                 const bubble = document.createElement('div');
                 bubble.style.cssText = `
                     max-width: 80%; padding: 12px 16px; border-radius: 16px;
@@ -2244,13 +2387,13 @@
             });
 
             // Add input focus effect
-            chatInput.addEventListener('focus', function() {
+            chatInput.addEventListener('focus', function () {
                 this.style.borderColor = 'var(--accent-primary)';
                 this.style.background = 'white';
                 this.style.boxShadow = '0 0 0 3px rgba(15, 23, 42, 0.1)';
             });
 
-            chatInput.addEventListener('blur', function() {
+            chatInput.addEventListener('blur', function () {
                 this.style.borderColor = 'var(--border-color)';
                 this.style.background = 'var(--bg-secondary)';
                 this.style.boxShadow = 'none';

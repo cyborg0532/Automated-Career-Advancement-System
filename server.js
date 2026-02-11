@@ -1,82 +1,39 @@
-const http = require("http");
-const https = require("https");
-const fs = require("fs");
-const path = require("path");
+const express = require('express');
+const dns = require('dns');
+// Force Google DNS for MongoDB Atlas SRV resolution
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
-const PORT = 3000;
-// Access the variable directly from the environment
-const HF_API_KEY = process.env.HF_API_KEY; 
+const dotenv = require('dotenv');
+const cors = require('cors');
+const path = require('path');
+const connectDB = require('./config/db');
 
-if (!HF_API_KEY) {
-    console.error("ERROR: HF_API_KEY is not defined in the environment!");
-}
+// Load env vars
+dotenv.config();
 
-const MIME = {
-    ".html": "text/html",
-    ".css": "text/css",
-    ".js": "application/javascript",
-    ".png": "image/png",
-    ".jpg": "image/jpeg",
-    ".svg": "image/svg+xml",
-    ".json": "application/json",
-};
+// Connect to Database
+connectDB();
 
-const server = http.createServer((req, res) => {
-    console.log(req.method, req.url);
+const app = express();
 
-    // --- API proxy route ---
-    if (req.method === "POST" && req.url === "/api/chat") {
-        console.log(">> Proxying to Hugging Face API...");
-        let body = "";
-        req.on("data", (chunk) => (body += chunk));
-        req.on("end", () => {
-            console.log(">> Body:", body.substring(0, 200));
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-            const options = {
-                hostname: "router.huggingface.co",
-                path: "/v1/chat/completions",
-                method: "POST",
-                headers: {
-                    "Authorization": "Bearer " + HF_API_KEY,
-                    "Content-Type": "application/json",
-                },
-            };
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/profile', require('./routes/profileRoutes'));
+app.use('/api/chat', require('./routes/chatRoutes'));
 
-            const hfReq = https.request(options, (hfRes) => {
-                console.log("<< HF responded with status:", hfRes.statusCode);
-                res.writeHead(hfRes.statusCode, { "Content-Type": "application/json" });
-                hfRes.pipe(res);
-            });
+// Serve Static Assets
+app.use(express.static(path.join(__dirname, '/')));
 
-            hfReq.on("error", (err) => {
-                res.writeHead(502, { "Content-Type": "application/json" });
-                res.end(JSON.stringify({ error: err.message }));
-            });
-
-            hfReq.write(body);
-            hfReq.end();
-        });
-        return;
-    }
-
-    // --- Static file server ---
-    let filePath = req.url === "/" ? "/index.html" : req.url;
-    filePath = path.join(__dirname, filePath);
-
-    const ext = path.extname(filePath);
-    const contentType = MIME[ext] || "application/octet-stream";
-
-    fs.readFile(filePath, (err, data) => {
-        if (err) {
-            res.writeHead(404);
-            res.end("Not found");
-            return;
-        }
-        res.writeHead(200, { "Content-Type": contentType });
-        res.end(data);
-    });
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
-server.listen(PORT, () => {
-    console.log("Server running at http://localhost:" + PORT);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

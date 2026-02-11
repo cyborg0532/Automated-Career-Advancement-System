@@ -1,0 +1,30 @@
+{
+  "name": "automated-career-advancement-system",
+  "version": "1.0.0",
+  "description": "This file contains css,js and html (only the frontend part of the program) - Automated Career Advancement System.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyborg0532/Automated-Career-Advancement-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cyborg0532/Automated-Career-Advancement-System/issues"
+  },
+  "homepage": "https://github.com/cyborg0532/Automated-Career-Advancement-System#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.0"
+  }
+}
