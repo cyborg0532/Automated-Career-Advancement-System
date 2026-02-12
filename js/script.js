@@ -304,14 +304,168 @@ document.getElementById('goToSignup').addEventListener('click', function (e) {
     showPage('signup');
 });
 
-// ==================== LOGOUT ====================
-document.getElementById('logoutBtn').addEventListener('click', function () {
-    if (confirm('Are you sure you want to logout?')) {
-        state.currentUser.isLoggedIn = false;
-        state.currentUser.profileComplete = 0;
-        showPage('login');
+// ==================== USER DROPDOWN MENU ====================
+const userMenuBtn = document.getElementById('userMenuBtn');
+const userDropdown = document.getElementById('userDropdown');
+const dropdownProfile = document.getElementById('dropdownProfile');
+const dropdownSettings = document.getElementById('dropdownSettings');
+const dropdownLogout = document.getElementById('dropdownLogout');
+
+// Toggle dropdown
+if (userMenuBtn) {
+    userMenuBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle('show');
+        userMenuBtn.classList.toggle('active');
+    });
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function (e) {
+    if (userDropdown && !userDropdown.contains(e.target) && e.target !== userMenuBtn) {
+        userDropdown.classList.remove('show');
+        userMenuBtn.classList.remove('active');
     }
 });
+
+// Dropdown menu actions
+if (dropdownProfile) {
+    dropdownProfile.addEventListener('click', function () {
+        userDropdown.classList.remove('show');
+        userMenuBtn.classList.remove('active');
+        showProfileModal();
+    });
+}
+
+if (dropdownSettings) {
+    dropdownSettings.addEventListener('click', function () {
+        userDropdown.classList.remove('show');
+        userMenuBtn.classList.remove('active');
+        // Navigate to settings view
+        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        document.querySelector('[data-view="settings"]').classList.add('active');
+        document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
+        document.getElementById('settingsView').classList.add('active');
+    });
+}
+
+if (dropdownLogout) {
+    dropdownLogout.addEventListener('click', function () {
+        userDropdown.classList.remove('show');
+        userMenuBtn.classList.remove('active');
+        if (confirm('Are you sure you want to logout?')) {
+            state.currentUser.isLoggedIn = false;
+            state.currentUser.profileComplete = 0;
+            localStorage.removeItem('cas_token');
+            showPage('login');
+        }
+    });
+}
+
+
+// ==================== PROFILE MODAL ====================
+const profileModal = document.getElementById('profileModal');
+const userProfileBtn = document.getElementById('userProfileBtn');
+const closeProfileModal = document.getElementById('closeProfileModal');
+const closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
+const profileModalOverlay = document.getElementById('profileModalOverlay');
+const editProfileBtn = document.getElementById('editProfileBtn');
+
+// Function to populate and show profile modal
+async function showProfileModal() {
+    const token = localStorage.getItem('cas_token');
+    if (!token) return;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/profile`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (response.ok) {
+            const profileData = await response.json();
+
+            // Populate modal fields
+            document.getElementById('profileModalName').textContent = profileData.name || '-';
+            document.getElementById('profileModalEmail').textContent = profileData.email || '-';
+            document.getElementById('profileModalRole').textContent = profileData.role || '-';
+            document.getElementById('profileModalPhone').textContent = profileData.profileData?.phone || '-';
+            document.getElementById('profileModalDepartment').textContent = profileData.profileData?.department || '-';
+            document.getElementById('profileModalExperience').textContent = profileData.profileData?.experience ? `${profileData.profileData.experience} years` : '-';
+            document.getElementById('profileModalQualification').textContent = profileData.profileData?.qualification || '-';
+            document.getElementById('profileModalEmployeeId').textContent = profileData.profileData?.employeeId || '-';
+            document.getElementById('profileModalSpecialization').textContent = profileData.profileData?.specialization || '-';
+            document.getElementById('profileModalBio').textContent = profileData.profileData?.bio || '-';
+
+            // Update progress bar
+            const progress = profileData.profileComplete || 0;
+            document.getElementById('profileModalProgress').style.width = progress + '%';
+            document.getElementById('profileModalProgressText').textContent = progress + '%';
+
+            // Show modal
+            profileModal.classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('Error fetching profile data:', error);
+    }
+}
+
+// Event listeners for opening modal
+if (userProfileBtn) {
+    userProfileBtn.addEventListener('click', showProfileModal);
+}
+
+// Event listeners for closing modal
+function closeModal() {
+    profileModal.classList.add('hidden');
+}
+
+if (closeProfileModal) {
+    closeProfileModal.addEventListener('click', closeModal);
+}
+
+if (closeProfileModalBtn) {
+    closeProfileModalBtn.addEventListener('click', closeModal);
+}
+
+if (profileModalOverlay) {
+    profileModalOverlay.addEventListener('click', closeModal);
+}
+
+// Edit profile button - navigate to profile setup page
+if (editProfileBtn) {
+    editProfileBtn.addEventListener('click', function () {
+        closeModal();
+        showPage('profileSetup');
+        // Populate the profile setup form with current data
+        const token = localStorage.getItem('cas_token');
+        if (token) {
+            fetch(`${API_BASE_URL}/profile`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.profileData) {
+                        document.getElementById('profilePhone').value = data.profileData.phone || '';
+                        document.getElementById('profileDepartment').value = data.profileData.department || '';
+                        document.getElementById('profileExperience').value = data.profileData.experience || '';
+                        document.getElementById('profileSpecialization').value = data.profileData.specialization || '';
+                        document.getElementById('profileQualification').value = data.profileData.qualification || '';
+                        document.getElementById('profileEmployeeId').value = data.profileData.employeeId || '';
+                        document.getElementById('profileBio').value = data.profileData.bio || '';
+                        updateProfileProgress();
+                    }
+                });
+        }
+    });
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !profileModal.classList.contains('hidden')) {
+        closeModal();
+    }
+});
+
 
 // ==================== VIEW SWITCHING ====================
 document.querySelectorAll('.nav-item').forEach(item => {
@@ -327,8 +481,34 @@ document.querySelectorAll('.nav-item').forEach(item => {
         document.getElementById(viewName + 'View').classList.add('active');
 
         state.currentView = viewName;
+
+        // Close mobile sidebar if open
+        if (window.innerWidth <= 768) {
+            document.querySelector('.sidebar').classList.remove('mobile-show');
+            document.getElementById('sidebarOverlay').classList.remove('show');
+        }
     });
 });
+
+// ==================== MOBILE MENU TOGGLE ====================
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const sidebar = document.querySelector('.sidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', function () {
+        sidebar.classList.toggle('mobile-show');
+        sidebarOverlay.classList.toggle('show');
+    });
+}
+
+if (sidebarOverlay) {
+    sidebarOverlay.addEventListener('click', function () {
+        sidebar.classList.remove('mobile-show');
+        sidebarOverlay.classList.remove('show');
+    });
+}
+
 
 // ==================== CHARTS INITIALIZATION ====================
 function initializeCharts(stats) {
@@ -509,7 +689,6 @@ async function getAIResponse(userMessage) {
         }
 
         const data = await response.json();
-        console.log('API Response:', data);
 
         if (data && data[0] && data[0].generated_text) {
             return data[0].generated_text.trim();
