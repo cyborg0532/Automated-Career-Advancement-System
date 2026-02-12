@@ -1,46 +1,49 @@
 const https = require('https');
 
 exports.chatProxy = (req, res) => {
-    console.log(">> Proxying to Hugging Face API...");
+    console.log(">> Proxying to Groq API...");
 
-    // In strict Express, we might process body with middleware.
-    // However, the original code streamed the request body to the HF API.
-    // Since we are using express.json() likely in server.js, req.body will be an object.
-    // We need to stringify it to send to HF.
+    const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
-    const bodyData = JSON.stringify(req.body);
-    const HF_API_KEY = process.env.HF_API_KEY;
-
-    if (!HF_API_KEY) {
-        console.error("HF_API_KEY not found");
-        return res.status(500).json({ error: "Server configuration error: HF_API_KEY missing" });
+    if (!GROQ_API_KEY) {
+        console.error("GROQ_API_KEY not found");
+        return res.status(500).json({ error: "Server configuration error: GROQ_API_KEY missing" });
     }
 
+    // Ensure the payload matches Groq/OpenAI requirements
+    const bodyData = JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: req.body.messages || [{ role: "user", content: req.body.inputs || "" }],
+        temperature: req.body.parameters?.temperature || 0.7,
+        max_tokens: req.body.parameters?.max_new_tokens || 1024,
+        top_p: req.body.parameters?.top_p || 1,
+        stream: false
+    });
+
     const options = {
-        hostname: "router.huggingface.co",
-        path: "/v1/chat/completions",
+        hostname: "api.groq.com",
+        path: "/openai/v1/chat/completions",
         method: "POST",
         headers: {
-            "Authorization": "Bearer " + HF_API_KEY,
+            "Authorization": "Bearer " + GROQ_API_KEY,
             "Content-Type": "application/json",
             "Content-Length": Buffer.byteLength(bodyData)
         },
     };
 
-    const hfReq = https.request(options, (hfRes) => {
-        console.log("<< HF responded with status:", hfRes.statusCode);
-        res.status(hfRes.statusCode);
-        // Relay headers? Maybe just content-type
+    const groqReq = https.request(options, (groqRes) => {
+        console.log("<< Groq responded with status:", groqRes.statusCode);
+        res.status(groqRes.statusCode);
         res.set("Content-Type", "application/json");
 
-        hfRes.pipe(res);
+        groqRes.pipe(res);
     });
 
-    hfReq.on("error", (err) => {
-        console.error("HF Request Error:", err);
+    groqReq.on("error", (err) => {
+        console.error("Groq Request Error:", err);
         res.status(502).json({ error: err.message });
     });
 
-    hfReq.write(bodyData);
-    hfReq.end();
+    groqReq.write(bodyData);
+    groqReq.end();
 };

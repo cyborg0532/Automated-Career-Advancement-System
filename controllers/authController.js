@@ -63,3 +63,21 @@ exports.authUser = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.changePassword = async (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+
+    try {
+        const user = await User.findById(req.user._id);
+
+        if (user && (await user.matchPassword(currentPassword))) {
+            user.password = newPassword;
+            await user.save();
+            res.json({ message: 'Password updated successfully' });
+        } else {
+            res.status(401).json({ message: 'Invalid current password' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

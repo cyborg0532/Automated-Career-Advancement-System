@@ -7,6 +7,8 @@
     <title>PIRATES CAS | Comprehensive Assessment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -309,64 +311,48 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-value">156</div>
+                                <div class="stat-value" id="totalStudentsCount">0</div>
                                 <div class="stat-label">Total Students</div>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-users"></i>
                             </div>
                         </div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>12% from last month</span>
-                        </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-value">24</div>
+                                <div class="stat-value" id="activeAssessmentsCount">0</div>
                                 <div class="stat-label">Active Assessments</div>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-clipboard-list"></i>
                             </div>
                         </div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>8% increase</span>
-                        </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-value">78.5%</div>
+                                <div class="stat-value" id="avgScoreText">0%</div>
                                 <div class="stat-label">Average Score</div>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-chart-line"></i>
                             </div>
                         </div>
-                        <div class="stat-change negative">
-                            <i class="fas fa-arrow-down"></i>
-                            <span>2.3% decrease</span>
-                        </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-value">12</div>
+                                <div class="stat-value" id="pendingTasksCount">0</div>
                                 <div class="stat-label">Pending Reviews</div>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-hourglass-half"></i>
                             </div>
-                        </div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-down"></i>
-                            <span>4 less than yesterday</span>
                         </div>
                     </div>
                 </div>
@@ -386,12 +372,23 @@
                         </div>
                         <canvas id="gradeChart"></canvas>
                     </div>
+
+                    <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: flex-end;">
+                        <button class="btn-primary" id="openStudentModalDash">
+                            <i class="fas fa-user-plus"></i>
+                            Add New Student
+                        </button>
+                    </div>
                 </div>
 
                 <div class="table-card">
                     <div class="table-header">
                         <h3>Recent Assessments</h3>
                         <div class="table-actions">
+                            <button class="btn-primary" id="openAssessmentModalDash">
+                                <i class="fas fa-plus"></i>
+                                New Assessment
+                            </button>
                             <button class="btn-secondary">
                                 <i class="fas fa-filter"></i>
                                 Filter
@@ -414,43 +411,8 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Mid-Term Exam</td>
-                                <td>Data Structures</td>
-                                <td>Jan 15, 2024</td>
-                                <td>45</td>
-                                <td>82%</td>
-                                <td><span class="status-badge completed">Completed</span></td>
-                                <td>
-                                    <button class="action-btn">View</button>
-                                    <button class="action-btn">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Quiz 3</td>
-                                <td>Algorithms</td>
-                                <td>Jan 18, 2024</td>
-                                <td>38</td>
-                                <td>75%</td>
-                                <td><span class="status-badge in-progress">In Progress</span></td>
-                                <td>
-                                    <button class="action-btn">View</button>
-                                    <button class="action-btn">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Assignment 4</td>
-                                <td>Database Systems</td>
-                                <td>Jan 20, 2024</td>
-                                <td>42</td>
-                                <td>88%</td>
-                                <td><span class="status-badge pending">Pending</span></td>
-                                <td>
-                                    <button class="action-btn">View</button>
-                                    <button class="action-btn">Edit</button>
-                                </td>
-                            </tr>
+                        <tbody id="recentAssessmentsBody">
+                            <!-- Data will be loaded here -->
                         </tbody>
                     </table>
                 </div>
@@ -466,7 +428,7 @@
                     <div class="table-header">
                         <h3>All Assessments</h3>
                         <div class="table-actions">
-                            <button class="btn-secondary">
+                            <button class="btn-secondary" id="openAssessmentModal">
                                 <i class="fas fa-plus"></i>
                                 New Assessment
                             </button>
@@ -484,19 +446,8 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Final Exam</td>
-                                <td>Exam</td>
-                                <td>Operating Systems</td>
-                                <td>Feb 10, 2024</td>
-                                <td>3 hours</td>
-                                <td><span class="status-badge pending">Upcoming</span></td>
-                                <td>
-                                    <button class="action-btn">Edit</button>
-                                    <button class="action-btn">Delete</button>
-                                </td>
-                            </tr>
+                        <tbody id="allAssessmentsBody">
+                            <!-- Data will be loaded here -->
                         </tbody>
                     </table>
                 </div>
@@ -512,7 +463,7 @@
                     <div class="table-header">
                         <h3>Student List</h3>
                         <div class="table-actions">
-                            <button class="btn-secondary">
+                            <button class="btn-secondary" id="openStudentModal">
                                 <i class="fas fa-user-plus"></i>
                                 Add Student
                             </button>
@@ -529,17 +480,8 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>CS001</td>
-                                <td>John Doe</td>
-                                <td>Computer Science</td>
-                                <td>3rd Year</td>
-                                <td>85%</td>
-                                <td>
-                                    <button class="action-btn">View Profile</button>
-                                </td>
-                            </tr>
+                        <tbody id="studentListBody">
+                            <!-- Data will be loaded here -->
                         </tbody>
                     </table>
                 </div>
@@ -577,11 +519,64 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-value">48</div>
-                                <div class="stat-label">Generated Reports</div>
+                                <div class="stat-value" id="generatedReportsCount">0</div>
+                                <div class="stat-label">Reports Available</div>
                             </div>
                             <div class="stat-icon">
-                                <i class="fas fa-file-alt"></i>
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-header" style="padding-top: 20px;">
+                    <h3>Available Report Types</h3>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Student Report Card -->
+                    <div class="stat-card">
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="stat-icon"
+                                    style="background: rgba(37, 99, 235, 0.1); color: var(--accent-primary);">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div style="font-weight: 700; font-size: 16px;">Student Enrollment Report</div>
+                            </div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">Comprehensive list of
+                                all enrolled students with their current academic standing.</p>
+                            <div style="display: flex; gap: 10px; margin-top: 8px;">
+                                <button class="btn-primary" onclick="generatePDFReport('student')" style="flex: 1;">
+                                    <i class="fas fa-file-pdf"></i> Download PDF
+                                </button>
+                                <button class="btn-secondary" onclick="generateReport('student')" title="Download JSON">
+                                    <i class="fas fa-file-code"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Assessment Report Card -->
+                    <div class="stat-card">
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="stat-icon" style="background: rgba(5, 150, 105, 0.1); color: #059669;">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <div style="font-weight: 700; font-size: 16px;">Assessment Performance Report</div>
+                            </div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">Detailed log of all
+                                conducted assessments, types, and average performance scores.</p>
+                            <div style="display: flex; gap: 10px; margin-top: 8px;">
+                                <button class="btn-primary" onclick="generatePDFReport('assessment')"
+                                    style="flex: 1; background: #059669;">
+                                    <i class="fas fa-file-pdf"></i> Download PDF
+                                </button>
+                                <button class="btn-secondary" onclick="generateReport('assessment')"
+                                    title="Download JSON">
+                                    <i class="fas fa-file-code"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -592,18 +587,147 @@
             <div id="settingsView" class="view-section">
                 <div class="content-header">
                     <h1>Settings</h1>
-                    <p>Manage your account and preferences.</p>
+                    <p>Manage your account preferences and security settings.</p>
                 </div>
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <h3>Account Settings</h3>
+
+                <div class="settings-layout">
+                    <!-- Left Sidebar Tabs -->
+                    <div class="settings-sidebar">
+                        <div class="settings-nav-item active" data-tab="profile-settings">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile Information</span>
+                        </div>
+                        <div class="settings-nav-item" data-tab="security-settings">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Account Security</span>
+                        </div>
+                        <div class="settings-nav-item" data-tab="preference-settings">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Preferences</span>
+                        </div>
                     </div>
-                    <div style="padding: 20px;">
-                        <p style="color: var(--text-secondary);">Settings panel coming soon...</p>
+
+                    <!-- Right Content Area -->
+                    <div class="settings-content">
+                        <!-- Profile Settings Tab -->
+                        <div id="profile-settings" class="settings-tab-pane active">
+                            <form id="settingsProfileForm">
+                                <div class="settings-section">
+                                    <h3>Personal Details</h3>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Full Name</label>
+                                            <input type="text" id="settingsName" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email (Read-only)</label>
+                                            <input type="email" id="settingsEmail" disabled
+                                                style="background: var(--bg-secondary); cursor: not-allowed;">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input type="tel" id="settingsPhone" placeholder="+91 00000 00000">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Department</label>
+                                            <select id="settingsDepartment">
+                                                <option value="Computer Science">Computer Science</option>
+                                                <option value="Electronics">Electronics</option>
+                                                <option value="Mechanical">Mechanical</option>
+                                                <option value="Civil">Civil</option>
+                                                <option value="Mathematics">Mathematics</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Experience (Years)</label>
+                                            <input type="number" id="settingsExperience" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Employee ID</label>
+                                            <input type="text" id="settingsEmployeeId">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bio</label>
+                                        <textarea id="settingsBio" rows="4"
+                                            placeholder="Brief description about your professional background..."></textarea>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn-primary">
+                                            <i class="fas fa-save"></i> Update Profile
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Security Tab -->
+                        <div id="security-settings" class="settings-tab-pane">
+                            <form id="settingsSecurityForm">
+                                <div class="settings-section">
+                                    <h3>Change Password</h3>
+                                    <p class="section-desc">Update your password regularly to keep your account secure.
+                                    </p>
+                                    <div class="form-group">
+                                        <label>Current Password</label>
+                                        <input type="password" id="settingsCurrentPass" required
+                                            placeholder="Enter current password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>New Password</label>
+                                        <input type="password" id="settingsNewPass" required
+                                            placeholder="Minimum 6 characters">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirm New Password</label>
+                                        <input type="password" id="settingsConfirmPass" required
+                                            placeholder="Repeat new password">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn-primary" style="background: var(--danger);">
+                                            <i class="fas fa-key"></i> Update Password
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Preferences Tab -->
+                        <div id="preference-settings" class="settings-tab-pane">
+                            <div class="settings-section">
+                                <h3>Account Preferences</h3>
+                                <div class="preference-item">
+                                    <div class="pref-info">
+                                        <label>Dark Appearance</label>
+                                        <p>Enable dark mode for a more comfortable viewing experience in low-light.</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="darkModeToggle">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="pref-info">
+                                        <label>Email Notifications</label>
+                                        <p>Receive weekly summary reports and system alerts via email.</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </main>
+    </div>
+    </div>
+    </main>
     </div>
 
     <!-- Profile Modal -->
@@ -673,6 +797,98 @@
                 </button>
                 <button class="btn-primary" id="closeProfileModalBtn">Close</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Student Modal -->
+    <div id="studentModal" class="modal hidden">
+        <div class="modal-overlay" id="studentModalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Add New Student</h2>
+                <button class="modal-close" id="closeStudentModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addStudentForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="studentNameInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Roll Number</label>
+                        <input type="text" id="studentRollNoInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" id="studentDeptInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Year</label>
+                        <select id="studentYearInput" required>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Initial Score (%)</label>
+                        <input type="number" id="studentScoreInput" min="0" max="100" value="0">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelStudentBtn">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Assessment Modal -->
+    <div id="assessmentModal" class="modal hidden">
+        <div class="modal-overlay" id="assessmentModalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus"></i> Create New Assessment</h2>
+                <button class="modal-close" id="closeAssessmentModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addAssessmentForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Assessment Name</label>
+                        <input type="text" id="assNameInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="assTypeInput" required>
+                            <option value="Assignment">Assignment</option>
+                            <option value="Quiz">Quiz</option>
+                            <option value="Exam">Exam</option>
+                            <option value="Project">Project</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" id="assSubjectInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="assDateInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <input type="text" id="assDurationInput" placeholder="e.g. 2 hours" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelAssessmentBtn">Cancel</button>
+                    <button type="submit" class="btn-primary">Create Assessment</button>
+                </div>
+            </form>
         </div>
     </div>
 

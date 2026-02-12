@@ -25,6 +25,8 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/profile', require('./routes/profileRoutes'));
 app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 app.use('/api/chat', require('./routes/chatRoutes'));
+app.use('/api/students', require('./routes/studentRoutes'));
+app.use('/api/assessments', require('./routes/assessmentRoutes'));
 
 // Serve Static Assets
 app.use(express.static(path.join(__dirname, '/')));
