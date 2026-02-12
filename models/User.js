@@ -36,6 +36,24 @@ const UserSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    dashboardStats: {
+        performance: {
+            labels: { type: [String], default: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
+            data: { type: [Number], default: [75, 78, 76, 81, 79, 82] }
+        },
+        grades: {
+            labels: { type: [String], default: ['A', 'B', 'C', 'D', 'F'] },
+            data: { type: [Number], default: [30, 40, 20, 7, 3] }
+        },
+        subjects: {
+            labels: { type: [String], default: ['Data Structures', 'Algorithms', 'Database', 'OS', 'Networks'] },
+            data: { type: [Number], default: [82, 75, 88, 79, 84] }
+        },
+        assessments: {
+            labels: { type: [String], default: ['Exams', 'Quizzes', 'Assignments', 'Projects'] },
+            data: { type: [Number], default: [35, 25, 25, 15] }
+        }
     }
 });
 

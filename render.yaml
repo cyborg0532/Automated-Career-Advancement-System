@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: pirates-cas-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: HF_API_KEY
+        sync: false
+      - key: NODE_ENV
+        value: production
