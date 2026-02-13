@@ -1501,3 +1501,43 @@ function initializeChatbot() {
 
 // Initialize chatbot when dashboard loads
 initializeChatbot();
+
+// ==================== INPUT VALIDATION ====================
+function setupInputRestrictions() {
+    // Helper to restrict to numbers only
+    const restrictToNumbers = (elementId) => {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        }
+    };
+
+    // Helper to restrict to letters and spaces only
+    const restrictToLetters = (elementId) => {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+            });
+        }
+    };
+
+    // Apply restrictions
+    // Phone fields
+    restrictToNumbers('profilePhone');
+    restrictToNumbers('settingsPhone');
+    
+    // Experience fields
+    restrictToNumbers('profileExperience');
+    restrictToNumbers('settingsExperience');
+
+    // Name fields
+    restrictToLetters('signupName');
+    restrictToLetters('settingsName');
+    restrictToLetters('profileSpecialization');
+}
+
+// Initialize validation
+document.addEventListener('DOMContentLoaded', setupInputRestrictions);
