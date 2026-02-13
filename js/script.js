@@ -2,7 +2,7 @@
 // Automatically detect if running locally or in production
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3000/api'  // Local development
-    : 'https://your-backend-app.onrender.com/api';  // Production - UPDATE THIS after deploying backend
+    : 'https://automated-career-advancement-system.onrender.com/api';  // Production - UPDATE THIS after deploying backend
 
 // ==================== STATE MANAGEMENT ====================
 const state = {
